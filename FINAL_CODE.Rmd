@@ -1,0 +1,94 @@
+---
+title: "101afp"
+output: html_document
+date: "2025-06-02"
+---
+
+
+```{r}
+data <- read.csv("Data - FINAL DATA.csv")
+data
+library(tidyverse)
+library(car)
+```
+
+# POWER ANALYSIS
+
+```{r}
+library(pwr)
+fval <- 1.074/ sqrt(4.80)
+fval
+pwr.anova.test(k = 9, f = 0.4902117, sig.level = 0.05, power = 0.95)
+```
+
+
+R output indicated a required sample size of 11.41 per treatment group, which we rounded up to 12. Therefore, the total number of participants needed for the experiment is 12×9=108 student
+
+
+# ANOVA
+
+```{r}
+data <- data %>%
+  mutate(
+    caffeine = factor(caffeine, levels = c("Coffee", "Tea", "Energy Drink")),
+    exercise = factor(exercise, levels = c("Light Jogging", "Relaxing Walk Outdoors", "Stretching and Holding")),
+    block = factor(block)
+  )
+
+
+model <- aov(diff ~ caffeine * exercise + block, data = data)
+summary(model)
+
+```
+
+# ADEQUACY PLOTS 
+
+```{r}
+plot(model)
+```
+
+All assumptions appear to be satisfied with no major deviations
+
+
+# INTERACTION PLOT
+
+
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+
+means <- data %>%
+  group_by(caffeine, exercise) %>%
+  summarise(mean_diff = mean(diff), .groups = "drop")
+
+
+ggplot(means, aes(x = caffeine, y = mean_diff, group = exercise, color = exercise)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  labs(
+    title = "Interaction Plot: Exercise × Caffeine",
+    x = "Caffeine Type",
+    y = "Mean Memory Score Difference",
+    color = "Exercise Type"
+  ) +
+  theme_minimal()
+
+```
+
+
+There is no interaction between caffeine type and exercise - lines are roughly parallel (p=0.634) for interaction
+
+# POST HOC
+
+```{r}
+
+tukey_results <- TukeyHSD(aov(diff ~ caffeine * exercise + block, data = data), "caffeine")
+
+as.data.frame(tukey_results$caffeine)
+
+```
+
+
+Energy Drink resulted in significantly greater memory improvement compared to both Coffee (p = 0.031) and Tea (p = 0.006). No other pairwise comparisons among caffeine types were statistically significant (p > 0.05)
