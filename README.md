@@ -12,7 +12,7 @@ Each participant randomly assigned to one caffeine treatment and one exercise tr
 15-minute delay was built in post-caffeine intake to allow for physiological absorption before the memory test.
 
 ## Analysis: 
-Performed in R using ANOVA to evaluate main and interactive effects. 
+Performed in R using ANOVA to evaluate main and interactive effects.  
 Tukey's HSD: post-hoc pairwise comparisons.  
 Assumption Checks: normality, linearity, and homoscedasticity confimred via residual plots. 
 
