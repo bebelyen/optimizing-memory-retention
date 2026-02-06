@@ -14,7 +14,7 @@ Each participant randomly assigned to one caffeine treatment and one exercise tr
 ## Analysis: 
 Performed in R using ANOVA to evaluate main and interactive effects.  
 Tukey's HSD: post-hoc pairwise comparisons.  
-Assumption Checks: normality, linearity, and homoscedasticity confimred via residual plots. 
+Assumption Checks: normality, linearity, and homoscedasticity confirmed via residual plots. 
 
 ## Findings:
 Among caffeine treatments, energy drinks produced the largest mean improvement in memory test scores.
