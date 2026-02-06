@@ -13,7 +13,7 @@ Each participant randomly assigned to one caffeine treatment and one exercise tr
 
 ## Analysis: 
 Performed in R using ANOVA to evaluate main and interactive effects. 
-Tukey's HSD: post-hoc pairwise comparisons 
+Tukey's HSD: post-hoc pairwise comparisons.  
 Assumption Checks: normality, linearity, and homoscedasticity confimred via residual plots. 
 
 ## Findings:
